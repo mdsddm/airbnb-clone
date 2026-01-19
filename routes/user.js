@@ -3,6 +3,7 @@ const router = express.Router({ mergeParams: true });
 const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
+const { saveRedirectUrl } = require("../middleware.js");
 
 // Signup Get Route
 router.get("/signup", (req, res) => {
@@ -15,9 +16,14 @@ router.post(
     try {
       let { username, email, password } = req.body;
       const newUser = new User({ email, username });
-      await User.register(newUser, password);
-      req.flash("success", "Welcome to StayNest!");
-      res.redirect("/listings");
+      const registerUser = await User.register(newUser, password);
+      req.login(registerUser, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash("success", "Welcome to StayNest!");
+        res.redirect("/listings");
+      });
     } catch (err) {
       req.flash("error", err.message);
       res.redirect("/signup");
@@ -32,13 +38,15 @@ router.get("/login", (req, res) => {
 // Login Post Route
 router.post(
   "/login",
+  saveRedirectUrl,
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureFlash: true,
   }),
   async (req, res) => {
     req.flash("success", "Welcome back to StayNest!");
-    res.redirect("/listings");
+    const url = res.locals.redirectUrl || "/listings";
+    res.redirect(url);
   },
 );
 // Logout Route

@@ -1,21 +1,9 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const wrapAsync = require("../utils/wrapAsync.js");
-const ExpressError = require("../utils/ExpressError.js");
-const { listingSchema } = require("../schema.js");
-const Listing = require("../models/listing.js");
-const { isLoggedIn } = require("../middleware.js");
 
-// Validation Middleware for listing
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    let errorMessage = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errorMessage);
-  } else {
-    next();
-  }
-};
+const Listing = require("../models/listing.js");
+const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 
 // Index Route
 router.get(
@@ -41,6 +29,7 @@ router.post(
   validateListing,
   wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id;
     await newListing.save();
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
@@ -52,7 +41,9 @@ router.get(
   "/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id)
+      .populate("reviews")
+      .populate("owner");
     if (!listing) {
       req.flash("error", "Listing you requested for does not exist!");
       return res.redirect("/listings");
@@ -65,6 +56,7 @@ router.get(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
@@ -79,6 +71,7 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isOwner,
   validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -92,6 +85,7 @@ router.put(
 router.delete(
   "/:id",
   isLoggedIn,
+  isOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
