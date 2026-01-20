@@ -1,40 +1,17 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync");
+const userController = require("../controllers/users.js");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
 
 // Signup Get Route
-router.get("/signup", (req, res) => {
-  res.render("users/signup.ejs");
-});
+router.get("/signup", userController.renderSignupForm);
 // Signup Get Route
-router.post(
-  "/signup",
-  wrapAsync(async (req, res) => {
-    try {
-      let { username, email, password } = req.body;
-      const newUser = new User({ email, username });
-      const registerUser = await User.register(newUser, password);
-      req.login(registerUser, (err) => {
-        if (err) {
-          return next(err);
-        }
-        req.flash("success", "Welcome to StayNest!");
-        res.redirect("/listings");
-      });
-    } catch (err) {
-      req.flash("error", err.message);
-      res.redirect("/signup");
-    }
-  }),
-);
+router.post("/signup", wrapAsync(userController.signup));
 
 // Login Get Route
-router.get("/login", (req, res) => {
-  res.render("users/login.ejs");
-});
+router.get("/login", userController.renderLoginForm);
 // Login Post Route
 router.post(
   "/login",
@@ -43,20 +20,8 @@ router.post(
     failureRedirect: "/login",
     failureFlash: true,
   }),
-  async (req, res) => {
-    req.flash("success", "Welcome back to StayNest!");
-    const url = res.locals.redirectUrl || "/listings";
-    res.redirect(url);
-  },
+  userController.login,
 );
 // Logout Route
-router.get("/logout", (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    req.flash("success", "You are logged out!");
-    res.redirect("/listings");
-  });
-});
+router.get("/logout", userController.logout);
 module.exports = router;
