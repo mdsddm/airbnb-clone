@@ -117,3 +117,9 @@ body {
   padding-right: 0;
   border: none !important;
 }
+
+/* map */
+#map {
+  width: 80vh;
+  height: 50vh;
+}

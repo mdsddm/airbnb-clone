@@ -27,11 +27,26 @@ module.exports.showListing = async (req, res) => {
 };
 
 module.exports.createListing = async (req, res, next) => {
+  let { country, location } = req.body.listing;
   let url = req.file.path;
   let filename = req.file.filename;
+  const query = `${location}, ${country}`;
+  const mapUrl =
+    `https://nominatim.openstreetmap.org/search` +
+    `?q=${encodeURIComponent(query)}` +
+    `&format=geojson` +
+    `&limit=1`;
+  const response = await fetch(mapUrl);
+  const data = await response.json();
+
+  if (!data.features || data.features.length === 0) {
+    req.flash("error", "Location not found!");
+    return res.redirect("/listings/new");
+  }
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.image = { filename, url };
+  newListing.geometry = data.features[0].geometry;
   await newListing.save();
   req.flash("success", "New Listing Created!");
   res.redirect("/listings");

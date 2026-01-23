@@ -1,6 +1,12 @@
 <% layout("/layouts/boilerplate") %>
 
 <body>
+ <script>
+  const raw = <%- JSON.stringify(listing.geometry.coordinates) %>;
+  const coordinates = [raw[1], raw[0]]; // GeoJSON → Leaflet
+  const placeName = "<%= listing.title %>";
+</script>
+
   <div class="row mt-3">
     <div class="col-8 offset-3 mb-3">
       <h3><%=listing.title %></h3>
@@ -79,7 +85,7 @@
      
     </div>
 
-
+    <% if(listing.reviews.length > 0) { %>
     <div class="col-8 offset-3 mb-3">
       <hr />
       <p>All Reviews</p>
@@ -105,5 +111,14 @@
         <% } %>
       </div>
     </div>
+    <% } %>
+    <div class="col-8 offset-3 mb-3">
+      <hr>
+      <h3>Where you'll be</h3>
+      <div id="map"></div>
+      
+    </div>
+
   </div>
 </body>
+
