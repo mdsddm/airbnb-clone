@@ -2,13 +2,15 @@ const sampleListings = [
   {
     title: "Cozy Beachfront Cottage",
     description:
-      "Escape to this charming beachfront cottage for a relaxing getaway with stunning ocean views.",
+      "Relax in this charming beachfront cottage with uninterrupted ocean views.",
     image: {
       filename: "beachfront-cottage-malibu",
-      url: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b",
+      url: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=800&q=60&auto=format",
     },
-    price: 1500,
-    location: "Malibu",
+    price: 220,
+    priceUnit: "night",
+    category: ["beach", "cottage"],
+    location: "Malibu, California",
     country: "United States",
     geometry: {
       type: "Point",
@@ -17,14 +19,16 @@ const sampleListings = [
   },
 
   {
-    title: "Modern Loft in Downtown",
+    title: "Modern Loft in Downtown Manhattan",
     description:
-      "Stay in the heart of the city in this stylish loft apartment, perfect for urban explorers.",
+      "A sleek loft apartment in the heart of NYC, perfect for city explorers.",
     image: {
       filename: "modern-loft-nyc",
-      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+      url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=60&auto=format",
     },
-    price: 1200,
+    price: 180,
+    priceUnit: "night",
+    category: ["city", "apartment"],
     location: "New York City",
     country: "United States",
     geometry: {
@@ -36,13 +40,15 @@ const sampleListings = [
   {
     title: "Mountain Retreat Cabin",
     description:
-      "Unplug and unwind in this peaceful mountain cabin surrounded by nature.",
+      "Quiet wooden cabin surrounded by alpine forests and hiking trails.",
     image: {
       filename: "mountain-retreat-aspen",
-      url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d",
+      url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=60&auto=format",
     },
-    price: 1000,
-    location: "Aspen",
+    price: 160,
+    priceUnit: "night",
+    category: ["mountain", "nature"],
+    location: "Aspen, Colorado",
     country: "United States",
     geometry: {
       type: "Point",
@@ -53,13 +59,15 @@ const sampleListings = [
   {
     title: "Historic Villa in Tuscany",
     description:
-      "Experience the charm of Tuscany in this beautifully restored historic villa.",
+      "A restored countryside villa surrounded by vineyards and olive trees.",
     image: {
-      filename: "historic-villa-florence",
-      url: "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+      filename: "historic-villa-tuscany",
+      url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=60&auto=format",
     },
-    price: 2500,
-    location: "Florence",
+    price: 420,
+    priceUnit: "night",
+    category: ["villa", "luxury"],
+    location: "Florence, Tuscany",
     country: "Italy",
     geometry: {
       type: "Point",
@@ -68,15 +76,16 @@ const sampleListings = [
   },
 
   {
-    title: "Secluded Treehouse Getaway",
-    description:
-      "Live among the treetops in this unique treehouse retreat for nature lovers.",
+    title: "Secluded Treehouse Escape",
+    description: "A peaceful treehouse retreat hidden in the forest canopy.",
     image: {
-      filename: "treehouse-portland",
-      url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+      filename: "treehouse-oregon",
+      url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=60&auto=format",
     },
-    price: 800,
-    location: "Portland",
+    price: 120,
+    priceUnit: "night",
+    category: ["treehouse", "nature"],
+    location: "Portland, Oregon",
     country: "United States",
     geometry: {
       type: "Point",
@@ -85,15 +94,17 @@ const sampleListings = [
   },
 
   {
-    title: "Beachfront Paradise Condo",
+    title: "Beachfront Condo in Cancun",
     description:
-      "Step directly onto the sandy beach from this relaxing beachfront condo.",
+      "Modern condo with direct beach access and oceanfront balcony.",
     image: {
       filename: "beachfront-condo-cancun",
-      url: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+      url: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=60&auto=format",
     },
-    price: 2000,
-    location: "Cancun",
+    price: 210,
+    priceUnit: "night",
+    category: ["beach", "condo"],
+    location: "Cancún",
     country: "Mexico",
     geometry: {
       type: "Point",
@@ -102,15 +113,16 @@ const sampleListings = [
   },
 
   {
-    title: "Luxury Penthouse with City Views",
-    description:
-      "Enjoy luxury living with panoramic city views from this modern penthouse.",
+    title: "Luxury Penthouse with Skyline Views",
+    description: "High-end penthouse with panoramic city skyline views.",
     image: {
-      filename: "luxury-penthouse-los-angeles",
-      url: "https://images.unsplash.com/photo-1622396481328-9b1b78cdd9fd",
+      filename: "luxury-penthouse-la",
+      url: "https://images.unsplash.com/photo-1622396481328-9b1b78cdd9fd?w=800&q=60&auto=format",
     },
-    price: 3500,
-    location: "Los Angeles",
+    price: 550,
+    priceUnit: "night",
+    category: ["luxury", "city"],
+    location: "Los Angeles, California",
     country: "United States",
     geometry: {
       type: "Point",
@@ -119,14 +131,15 @@ const sampleListings = [
   },
 
   {
-    title: "Ski-In Ski-Out Chalet",
-    description:
-      "Hit the slopes right from your doorstep in this Swiss Alps chalet.",
+    title: "Ski-In Ski-Out Alpine Chalet",
+    description: "Traditional wooden chalet with direct access to ski slopes.",
     image: {
       filename: "ski-chalet-verbier",
-      url: "https://images.unsplash.com/photo-1502784444187-359ac186c5bb",
+      url: "https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=800&q=60&auto=format",
     },
-    price: 3000,
+    price: 480,
+    priceUnit: "night",
+    category: ["ski", "chalet"],
     location: "Verbier",
     country: "Switzerland",
     geometry: {
@@ -138,12 +151,14 @@ const sampleListings = [
   {
     title: "Safari Lodge in Serengeti",
     description:
-      "Experience the thrill of the wild in this comfortable safari lodge.",
+      "Luxury safari lodge offering unforgettable wildlife experiences.",
     image: {
       filename: "safari-lodge-serengeti",
-      url: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e",
+      url: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=60&auto=format",
     },
-    price: 4000,
+    price: 650,
+    priceUnit: "night",
+    category: ["safari", "luxury"],
     location: "Serengeti National Park",
     country: "Tanzania",
     geometry: {
@@ -153,14 +168,15 @@ const sampleListings = [
   },
 
   {
-    title: "Historic Canal House",
-    description:
-      "Stay in a beautifully preserved canal house in Amsterdam’s iconic district.",
+    title: "Canal-Side Townhouse",
+    description: "Classic Amsterdam canal house with historic charm.",
     image: {
       filename: "canal-house-amsterdam",
-      url: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4",
+      url: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=60&auto=format",
     },
-    price: 1800,
+    price: 260,
+    priceUnit: "night",
+    category: ["historic", "city"],
     location: "Amsterdam",
     country: "Netherlands",
     geometry: {

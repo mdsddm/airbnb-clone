@@ -51,11 +51,6 @@ const sessionOptions = {
   },
 };
 
-// Directory Route
-app.get("/", (req, res) => {
-  res.send("<h1>Home directory</h1>");
-});
-
 app.use(session(sessionOptions));
 app.use(flash());
 
