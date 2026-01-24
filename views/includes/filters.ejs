@@ -1,0 +1,76 @@
+<div id="filters">
+    <% if (category) { %>
+        <div class="active-filter">
+            <span class="filter-label">
+                <%= category.replace("_", " " ) %>
+            </span>
+            <a href="/listings" class="clear-filter">
+                <i class="fa-solid fa-xmark"></i>
+            </a>
+        </div>
+        <% } %>
+            <a href="/listings?category=trending" class="filter">
+                <div><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
+            </a>
+
+            <a href="/listings?category=rooms" class="filter">
+                <div><i class="fa-solid fa-bed"></i></div>
+                <p>Rooms</p>
+            </a>
+
+            <a href="/listings?category=iconic_cities" class="filter">
+                <div><i class="fa-solid fa-mountain-city"></i></div>
+                <p>Iconic Cities</p>
+            </a>
+
+            <a href="/listings?category=mountains" class="filter">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountains</p>
+            </a>
+
+            <a href="/listings?category=castles" class="filter">
+                <div><i class="fa-brands fa-fort-awesome"></i></div>
+                <p>Castles</p>
+            </a>
+
+            <a href="/listings?category=arctic" class="filter">
+                <div><i class="fa-regular fa-snowflake"></i></div>
+                <p>Arctic</p>
+            </a>
+
+            <a href="/listings?category=camping" class="filter">
+                <div><i class="fa-solid fa-campground"></i></div>
+                <p>Camping</p>
+            </a>
+
+            <a href="/listings?category=farms" class="filter">
+                <div><i class="fa-solid fa-cow"></i></div>
+                <p>Farms</p>
+            </a>
+            <a href="/listings?category=domes" class="filter">
+                <div><i class="fa-solid fa-igloo"></i></div>
+                <p>Domes</p>
+            </a>
+            <a href="/listings?category=boats" class="filter">
+                <div><i class="fa-solid fa-ship"></i></div>
+                <p>Boats</p>
+            </a>
+            <div class="form-check-reverse form-switch filter tax-toggle">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+            </div>
+</div>
+<script>
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault")
+    taxSwitch.addEventListener("click", () => {
+        let taxInfos = document.getElementsByClassName("tax-info");
+        for (const taxInfo of taxInfos) {
+            if (taxInfo.style.display != "inline") {
+                taxInfo.style.display = "inline";
+            } else {
+                taxInfo.style.display = "none";
+            }
+        }
+    })
+</script>
