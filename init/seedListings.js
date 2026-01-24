@@ -43,6 +43,8 @@ const categories = [
   "arctic",
   "camping",
   "farms",
+  "domes",
+  "boats",
 ];
 
 const unsplashImages = [
