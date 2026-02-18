@@ -8,7 +8,7 @@ async function seedDB() {
   await Listing.deleteMany({});
   const mappedData = data.map((obj) => ({
     ...obj,
-    owner: "6972148e5cc8b57d4e3a611e",
+    owner: "6995f16d0490a062d7e76ea9",
   }));
   await Listing.insertMany(mappedData);
   console.log("🔥 Database seeded with listings!");

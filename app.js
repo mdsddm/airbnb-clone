@@ -11,7 +11,7 @@ const { log } = require("console");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
-// const MONGO_URL = "mongodb://127.0.0.1:27017/staynest";
+
 const dbUri = process.env.DB_URI;
 const dbUrl = dbUri || MONGO_URL;
 const passport = require("passport");
