@@ -11,8 +11,9 @@ const { log } = require("console");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
-const MONGO_URL = "mongodb://127.0.0.1:27017/staynest";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/staynest";
 const dbUri = process.env.DB_URI;
+const dbUrl = dbUri || MONGO_URL;
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
@@ -31,7 +32,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
@@ -42,7 +43,7 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 const sessionOptions = {
-  secret: "mysupersecretcode",
+  secret: process.env.SESSION_SECRET || "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -84,5 +85,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(8080, () => {
-  console.log("app is listening on port 8080");
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`app is listening on port ${port}`);
 });
